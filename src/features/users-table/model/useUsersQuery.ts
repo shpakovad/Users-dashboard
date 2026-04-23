@@ -1,11 +1,12 @@
 import {useQuery} from "@tanstack/react-query";
 import {getUsers} from "@/shared/api/users";
 import {mapUser} from "@/entities/user/model/mappers";
+import {ParamsTableProps} from "@/features/users-table/model/types";
 
-export const useUsersQuery = ({page, pageSize}: { page: number, pageSize: number }) => {
+export const useUsersQuery = ({page, pageSize, sortOrder, sortBy}: ParamsTableProps) => {
     return useQuery({
-        queryKey: ['users', page, pageSize],
-        queryFn: () => getUsers({page, pageSize}),
+        queryKey: ['users', page, pageSize, sortOrder, sortBy],
+        queryFn: () => getUsers({page, pageSize, sortOrder, sortBy}),
         select: (data) => {
             return {
                 ...data,

@@ -11,5 +11,5 @@ export const mapUser = ({id, firstName, lastName, age, gender, address, company,
         email,
         address: `${address.city}, ${address.country}`,
         profession: company.title,
-        'blood group': bloodGroup
+        bloodGroup
     })
