@@ -1,6 +1,7 @@
-export const getUsers = async () => {
+export const getUsers = async ({page, pageSize}: { page: number, pageSize: number }) => {
     try {
-        const response = await fetch('https://dummyjson.com/users?limit=100');
+        const skip = (page - 1) * pageSize;
+        const response = await fetch(`https://dummyjson.com/users?limit=${pageSize}&skip=${skip}`);
         if (!response.ok) {
             return {isError: true, message: 'No Data Found'};
         }

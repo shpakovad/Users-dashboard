@@ -15,5 +15,11 @@ interface UserQuery {
     data?: UserTableProps,
 }
 
-export type {UserQuery, UserTableProps}
+interface Pagination {
+    current: number,
+    pageSize: number,
+    total: number
+}
+
+export type {UserQuery, UserTableProps, Pagination}
 
