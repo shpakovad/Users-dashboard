@@ -2,7 +2,7 @@
 
 import {useEffect, useState} from "react";
 import {Spin, Empty, Table} from "antd";
-import type {FilterValue, SorterResult, TablePaginationConfig} from "antd/es/table/interface";
+import type {SorterResult, TablePaginationConfig} from "antd/es/table/interface";
 import {useUsersQuery} from "@/features/users-table/model/useUsersQuery";
 import {UserQuery} from "@/features/users-table/model/types";
 import {getColumns, getDataSource, getEmptyDescription} from "@/features/users-table/model/tableConfig";
@@ -44,7 +44,7 @@ const UsersTable = () => {
                 ? <Spin size="large" description="Loading"/>
                 : isNoData
                     ? <Empty description={getEmptyDescription(query?.data)}/>
-                    : <div>
+                    : <div className={styles.tableContainer}>
                         <Table
                             columns={getColumns(data.users, sortBy, sortOrder)}
                             dataSource={getDataSource(data.users)}

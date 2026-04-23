@@ -6,3 +6,7 @@
     justify-content: center;
     min-height: 100vh;
 }
+
+.tableContainer {
+    margin-top: 30px;
+}
