@@ -7,7 +7,6 @@ import {useUsersQuery} from "@/features/users-table/model/useUsersQuery";
 import {UserQuery} from "@/features/users-table/model/types";
 import {getColumns, getDataSource, getEmptyDescription} from "@/features/users-table/model/tableConfig";
 import {useUsersTableParams} from "@/features/users-table/model/useUsersTableParams";
-import {User} from "@/entities/user/model/types";
 import styles from "./UsersTable.module.css";
 
 
@@ -23,13 +22,12 @@ const UsersTable = () => {
 
     const isNoData = !data || data.isError || !data.users.length;
 
-    const onPaginationChange = (pagination: TablePaginationConfig, _filters: Record<string, FilterValue | null>, sorter: SorterResult<User> | SorterResult<User>[]) => {
-        const s = Array.isArray(sorter) ? sorter[0] : sorter;
+    const onPaginationChange = (pagination: TablePaginationConfig, sorter: SorterResult) => {
         setParams({
             page: pagination.current,
             pageSize: pagination.pageSize,
-            sortOrder: s.order as string | undefined,
-            sortBy: s.field as string | undefined
+            sortOrder: sorter.order as string | undefined,
+            sortBy: sorter.field as string | undefined
         });
     }
 
@@ -48,14 +46,15 @@ const UsersTable = () => {
                     ? <Empty description={getEmptyDescription(query?.data)}/>
                     : <div>
                         <Table
-                            columns={getColumns(data.users, sortBy,sortOrder)}
+                            columns={getColumns(data.users, sortBy, sortOrder)}
                             dataSource={getDataSource(data.users)}
                             pagination={{
                                 current: page,
                                 pageSize,
                                 total
                             }}
-                            onChange={onPaginationChange}
+                            onChange={(pagination, filters, sorter) =>
+                                onPaginationChange(pagination, sorter as SorterResult)}
                         />
                     </div>
         }
