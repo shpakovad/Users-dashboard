@@ -9,9 +9,12 @@ const getColumns = (data: User[]) => {
         title: toTitleCase(column),
         dataIndex: column,
         key: column,
-        ...(column === 'email' ? {
+        ...(column === 'email' && {
             render: (text: string) => <a>{text}</a>
-        } : {})
+        }),
+        ...(column === 'logo' && {
+            render: (text: string) => <img src={text} alt="user-logo" width={30} height={30}/>
+        })
     }))
 }
 

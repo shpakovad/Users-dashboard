@@ -12,7 +12,8 @@ type User = {
     company: {
         title: string
     },
-    bloodGroup: string
+    bloodGroup: string,
+    image: string
 }
 
 export type {User}

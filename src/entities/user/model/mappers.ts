@@ -1,9 +1,10 @@
-import { User } from "@/entities/user/model/types";
+import {User} from "@/entities/user/model/types";
 
 
-export const mapUser = ({id, firstName, lastName, age, gender, address, company, email, bloodGroup}: User) =>
+export const mapUser = ({id, firstName, lastName, age, gender, address, company, email, bloodGroup, image}: User) =>
     ({
         id,
+        logo: image,
         name: `${firstName} ${lastName}`,
         age,
         gender,
