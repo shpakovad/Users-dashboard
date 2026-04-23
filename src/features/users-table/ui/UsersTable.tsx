@@ -7,14 +7,17 @@ import {useUsersQuery} from "@/features/users-table/model/useUsersQuery";
 import {UserQuery} from "@/features/users-table/model/types";
 import {getColumns, getDataSource, getEmptyDescription} from "@/features/users-table/model/tableConfig";
 import {useUsersTableParams} from "@/features/users-table/model/useUsersTableParams";
+import {useDeleteUser} from "@/entities/user/model/useDeleteUser";
 import styles from "./UsersTable.module.css";
 
 
 const UsersTable = () => {
 
     const {page, pageSize, setParams, sortOrder, sortBy} = useUsersTableParams();
+    const deleteMutation = useDeleteUser();
 
     const [total, setTotal] = useState(0);
+    const [deletedId, setDeletedId] = useState<number | null>(null);
 
     const query: UserQuery = useUsersQuery({page, pageSize, sortOrder, sortBy});
 
@@ -31,6 +34,10 @@ const UsersTable = () => {
         });
     }
 
+    const onDeleteRow = (id: number) => {
+        deleteMutation.mutate(id)
+    };
+
     useEffect(() => {
         if (!isNoData) {
             setTotal(data.total)
@@ -46,7 +53,7 @@ const UsersTable = () => {
                     ? <Empty description={getEmptyDescription(query?.data)}/>
                     : <div className={styles.tableContainer}>
                         <Table
-                            columns={getColumns(data.users, sortBy, sortOrder)}
+                            columns={getColumns(data.users, sortBy, sortOrder, onDeleteRow)}
                             dataSource={getDataSource(data.users)}
                             scroll={{y: 'calc( 100vh - 60px )', x: '90vw'}}
                             pagination={{

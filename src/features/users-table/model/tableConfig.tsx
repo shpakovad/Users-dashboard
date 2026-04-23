@@ -1,14 +1,20 @@
+import React from "react";
+import {Popconfirm} from "antd";
 import {User} from "@/entities/user/model/types";
 import {UserTableProps} from "@/features/users-table/model/types";
 import {toTitleCase} from "@/shared/lib/utils";
 
-const getColumns: (data: User[], sortBy: string, sortOrder: string) => {
+const getColumns: (data: User[], sortBy: string, sortOrder: string, onDeleteRow: (id: number) => void) => ({
     title: string | undefined;
     dataIndex: string;
     key: string
-}[] = (data: User[], sortBy: string, sortOrder: string) => {
+} | {
+    title: string;
+    dataIndex: string;
+    render: (_: any, record: { id: number }) => React.JSX.Element
+})[] = (data: User[], sortBy: string, sortOrder: string, onDeleteRow: (id: number) => void) => {
     const columnNames = Object.keys(data[0]).filter(key => key !== 'id');
-    return columnNames.map(column => ({
+    const columns = columnNames.map(column => ({
         title: toTitleCase(column),
         dataIndex: column,
         key: column,
@@ -24,6 +30,20 @@ const getColumns: (data: User[], sortBy: string, sortOrder: string) => {
                 sortOrder: sortBy === column ? sortOrder : null,
             })
     }))
+
+    return [
+        ...columns,
+        {
+            title: 'Action',
+            dataIndex: 'action',
+            render: (_: any, record: { id: number }) => {
+                console.log(record)
+                return <Popconfirm title="Sure to delete?" onConfirm={() => onDeleteRow(record.id)}>
+                    <a>Delete</a>
+                </Popconfirm>
+            }
+        }
+    ]
 }
 
 const getDataSource = (data: User[]) =>
