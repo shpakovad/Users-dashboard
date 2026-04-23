@@ -1,16 +1,19 @@
 import {User} from "@/entities/user/model/types";
 
-interface UserQuery {
-    isFetching: boolean,
-    data?: {
-        isError?: boolean,
-        message?: string,
-        users: User[],
-        limit: number,
-        skip: number,
-        total: number
-    },
+
+interface UserTableProps {
+    isError?: boolean,
+    message?: string,
+    users: User[],
+    limit: number,
+    skip: number,
+    total: number
 }
 
-export type {UserQuery}
+interface UserQuery {
+    isFetching: boolean,
+    data?: UserTableProps,
+}
+
+export type {UserQuery, UserTableProps}
 

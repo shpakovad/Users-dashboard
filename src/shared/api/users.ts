@@ -1,6 +1,6 @@
-export async function getUsers() {
+export const getUsers = async () => {
     try {
-        const response = await fetch('https://dummyjson.com/users');
+        const response = await fetch('https://dummyjson.com/users?limit=0');
         if (!response.ok) {
             return {isError: true, message: 'No Data Found'};
         }

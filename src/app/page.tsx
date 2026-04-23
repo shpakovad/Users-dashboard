@@ -2,6 +2,8 @@
 
 import UsersTable from "@/features/users-table/ui/UsersTable";
 
-export default function Home() {
-  return <UsersTable/>;
+const Home = () => {
+    return <UsersTable/>;
 }
+
+export default Home;
