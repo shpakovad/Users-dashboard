@@ -33,6 +33,6 @@ const getDataSource = (data: User[]) =>
     }));
 
 const getEmptyDescription = (dataQuery?: UserTableProps) =>
-    dataQuery?.message || 'No data';
+    dataQuery?.message || 'No data found';
 
 export {getColumns, getEmptyDescription, getDataSource};

@@ -41,13 +41,14 @@ const UsersTable = () => {
     return (<div className={styles.container}>
         {
             query.isFetching
-                ? <Spin size="large" description="Loading"/>
+                ? <Spin size="large" description="Loading" fullscreen/>
                 : isNoData
                     ? <Empty description={getEmptyDescription(query?.data)}/>
                     : <div className={styles.tableContainer}>
                         <Table
                             columns={getColumns(data.users, sortBy, sortOrder)}
                             dataSource={getDataSource(data.users)}
+                            scroll={{y: 'calc( 100vh - 60px )', x: '90vw'}}
                             pagination={{
                                 current: page,
                                 pageSize,
