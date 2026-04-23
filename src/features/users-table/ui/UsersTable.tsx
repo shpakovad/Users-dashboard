@@ -17,7 +17,6 @@ const UsersTable = () => {
     const deleteMutation = useDeleteUser();
 
     const [total, setTotal] = useState(0);
-    const [deletedId, setDeletedId] = useState<number | null>(null);
 
     const query: UserQuery = useUsersQuery({page, pageSize, sortOrder, sortBy});
 
