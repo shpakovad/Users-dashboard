@@ -1,11 +1,13 @@
 "use client"
 
 import {useEffect, useState} from "react";
-import {Spin, Empty, Table, TablePaginationConfig} from "antd";
+import {Spin, Empty, Table} from "antd";
+import type {FilterValue, SorterResult, TablePaginationConfig} from "antd/es/table/interface";
 import {useUsersQuery} from "@/features/users-table/model/useUsersQuery";
-import {PaginationProps, ParamsTableProps, SorterProps, UserQuery} from "@/features/users-table/model/types";
+import {UserQuery} from "@/features/users-table/model/types";
 import {getColumns, getDataSource, getEmptyDescription} from "@/features/users-table/model/tableConfig";
 import {useUsersTableParams} from "@/features/users-table/model/useUsersTableParams";
+import {User} from "@/entities/user/model/types";
 import styles from "./UsersTable.module.css";
 
 
@@ -21,12 +23,13 @@ const UsersTable = () => {
 
     const isNoData = !data || data.isError || !data.users.length;
 
-    const onPaginationChange = (pagination: PaginationProps, sorter: SorterProps) => {
+    const onPaginationChange = (pagination: TablePaginationConfig, _filters: Record<string, FilterValue | null>, sorter: SorterResult<User> | SorterResult<User>[]) => {
+        const s = Array.isArray(sorter) ? sorter[0] : sorter;
         setParams({
             page: pagination.current,
             pageSize: pagination.pageSize,
-            sortOrder: sorter.order,
-            sortBy: sorter.field
+            sortOrder: s.order as string | undefined,
+            sortBy: s.field as string | undefined
         });
     }
 
@@ -45,14 +48,14 @@ const UsersTable = () => {
                     ? <Empty description={getEmptyDescription(query?.data)}/>
                     : <div>
                         <Table
-                            columns={getColumns(data.users, sortBy)}
+                            columns={getColumns(data.users, sortBy,sortOrder)}
                             dataSource={getDataSource(data.users)}
                             pagination={{
                                 current: page,
                                 pageSize,
                                 total
                             }}
-                            onChange={(pagination, filters, sorter) => onPaginationChange(pagination, sorter)}
+                            onChange={onPaginationChange}
                         />
                     </div>
         }

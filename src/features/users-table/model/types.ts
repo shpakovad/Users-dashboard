@@ -15,31 +15,13 @@ interface UserQuery {
     data?: UserTableProps,
 }
 
-interface PaginationProps {
-    current: number,
-    pageSize: number,
-    total: number
-}
-
-interface SorterProps {
-    column: {
-        title: string,
-        dataIndex: string,
-        key: string,
-        defaultSortOrder: string
-    },
-    order: string,
-    field: string,
-    columnKey: string
-}
-
 interface ParamsTableProps {
-    page: number,
-    pageSize: number,
-    sortOrder: string,
-    sortBy: string
+    page?: number,
+    pageSize?: number,
+    sortOrder?: string,
+    sortBy?: string
 }
 
 
-export type {UserQuery, UserTableProps, PaginationProps, SorterProps, ParamsTableProps}
+export type {UserQuery, UserTableProps, ParamsTableProps}
 

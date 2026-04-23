@@ -16,7 +16,7 @@ const useUsersTableParams = () => {
         params.set('page', String(page));
         params.set('pageSize', String(pageSize));
 
-        if (!order || !sortBy) {
+        if (!sortOrder || !sortBy) {
             params.delete('order');
             params.delete('sortBy');
         } else {
