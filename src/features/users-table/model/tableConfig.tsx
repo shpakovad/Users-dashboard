@@ -2,7 +2,11 @@ import {User} from "@/entities/user/model/types";
 import {UserTableProps} from "@/features/users-table/model/types";
 import {toTitleCase} from "@/shared/lib/utils";
 
-const getColumns = (data: User[], sortBy: string, sortOrder: string) => {
+const getColumns: (data: User[], sortBy: string, sortOrder: string) => {
+    title: string | undefined;
+    dataIndex: string;
+    key: string
+}[] = (data: User[], sortBy: string, sortOrder: string) => {
     const columnNames = Object.keys(data[0]).filter(key => key !== 'id');
     return columnNames.map(column => ({
         title: toTitleCase(column),
