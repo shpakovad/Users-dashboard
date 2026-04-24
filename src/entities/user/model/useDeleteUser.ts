@@ -1,3 +1,5 @@
+"use client"
+
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {deleteUser} from "@/entities/user/api/deleteUser";
 import {UserTableProps} from "@/features/users-table/model/types";

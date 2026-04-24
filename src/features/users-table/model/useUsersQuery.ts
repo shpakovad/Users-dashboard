@@ -1,3 +1,5 @@
+"use client"
+
 import {useQuery} from "@tanstack/react-query";
 import {getUsers} from "@/shared/api/users";
 import {mapUser} from "@/entities/user/model/mappers";
