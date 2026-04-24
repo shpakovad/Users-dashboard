@@ -3,8 +3,17 @@ import {Popconfirm} from "antd";
 import {User} from "@/entities/user/model/types";
 import {UserTableProps} from "@/features/users-table/model/types";
 import {toTitleCase} from "@/shared/lib/utils";
+import Link from "next/link";
 
-const getColumns: (data: User[], sortBy: string, sortOrder: string, onDeleteRow: (id: number) => void) => ({
+interface TableColumnsProps {
+    data: User[],
+    sortBy: string,
+    sortOrder: string,
+    onDeleteRow: (id: number) => void,
+    onEditRow: (id: number) => void
+}
+
+const getColumns: ({data, sortBy, sortOrder, onDeleteRow, onEditRow}: TableColumnsProps) => ({
     title: string | undefined;
     dataIndex: string;
     key: string
@@ -12,7 +21,7 @@ const getColumns: (data: User[], sortBy: string, sortOrder: string, onDeleteRow:
     title: string;
     dataIndex: string;
     render: (_: any, record: { id: number }) => React.JSX.Element
-})[] = (data: User[], sortBy: string, sortOrder: string, onDeleteRow: (id: number) => void) => {
+})[] = ({data, sortBy, sortOrder, onDeleteRow, onEditRow}) => {
     const columnNames = Object.keys(data[0]).filter(key => key !== 'id');
     const columns = columnNames.map(column => ({
         title: toTitleCase(column),
@@ -38,9 +47,16 @@ const getColumns: (data: User[], sortBy: string, sortOrder: string, onDeleteRow:
             dataIndex: 'action',
             render: (_: any, record: { id: number }) => {
                 console.log(record)
-                return <Popconfirm title="Sure to delete?" onConfirm={() => onDeleteRow(record.id)}>
-                    <a>Delete</a>
-                </Popconfirm>
+                return <>
+                    <Popconfirm title="Sure to delete?" onConfirm={() => onDeleteRow(record.id)}>
+                        <div><a>Delete</a></div>
+                    </Popconfirm>
+                    <div onClick={() => onEditRow(record.id)}>
+                        <Link href={`/users/${record.id}`}>
+                            Edit
+                        </Link>
+                    </div>
+                </>
             }
         }
     ]

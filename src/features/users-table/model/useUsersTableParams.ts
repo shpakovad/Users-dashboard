@@ -2,8 +2,8 @@ import {useRouter, useSearchParams} from "next/navigation";
 import {ParamsTableProps} from "@/features/users-table/model/types";
 
 const useUsersTableParams = () => {
-    const searchParams = useSearchParams()
-    const router = useRouter()
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
     const page = Number(searchParams.get('page') || 1)
     const pageSize = Number(searchParams.get('pageSize') || 10)
