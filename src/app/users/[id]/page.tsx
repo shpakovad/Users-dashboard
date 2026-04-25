@@ -23,7 +23,7 @@ const UserPage = () => {
     const isNoData = !query?.data || query.data.isError || !id;
 
     if (query?.isFetching) {
-        return <Spin size="large" description="Loading" fullscreen/>
+        return <Spin size="large" description="Loading"/>
     } else if (isNoData) {
         return <Empty description={getEmptyDescription(query?.data)}/>
     }

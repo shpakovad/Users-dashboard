@@ -10,10 +10,10 @@ import {useUsersQuery} from "@/features/users-table/model/useUsersQuery";
 export const useTable = () => {
     const router = useRouter();
 
-    const {page, pageSize, setParams, sortOrder, sortBy} = useUsersTableParams();
+    const {page, pageSize, setParams, sortOrder, sortBy, search} = useUsersTableParams();
     const deleteMutation = useDeleteUser();
 
-    const query: UserQuery = useUsersQuery({page, pageSize, sortOrder, sortBy});
+    const query: UserQuery = useUsersQuery({page, pageSize, sortOrder, sortBy, search});
     const data = query?.data;
 
     const isNoData = !data || data.isError || !data.users.length;

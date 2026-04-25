@@ -46,7 +46,6 @@ const getColumns: ({data, sortBy, sortOrder, onDeleteRow, onEditRow}: TableColum
             title: 'Action',
             dataIndex: 'action',
             render: (_: any, record: { id: number }) => {
-                console.log(record)
                 return <>
                     <Popconfirm title="Sure to delete?" onConfirm={() => onDeleteRow(record.id)}>
                         <div><a>Delete</a></div>

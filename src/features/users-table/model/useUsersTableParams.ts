@@ -5,13 +5,14 @@ const useUsersTableParams = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
 
-    const page = Number(searchParams.get('page') || 1)
-    const pageSize = Number(searchParams.get('pageSize') || 10)
+    const page = Number(searchParams.get('page') || 1);
+    const pageSize = Number(searchParams.get('pageSize') || 10);
     const order = searchParams.get('order') || 'asc';
     const sortBy = searchParams.get('sortBy') || 'bloodGroup';
+    const search = searchParams.get('search') || '';
 
-    const setParams = ({page, pageSize, sortOrder, sortBy}: ParamsTableProps) => {
-        const params = new URLSearchParams(searchParams.toString())
+    const setParams = ({page, pageSize = 10, sortOrder, sortBy, search}: ParamsTableProps) => {
+        const params = new URLSearchParams(searchParams.toString());
 
         params.set('page', String(page));
         params.set('pageSize', String(pageSize));
@@ -25,6 +26,12 @@ const useUsersTableParams = () => {
             params.set('sortBy', sortBy);
         }
 
+        if (search) {
+            params.set('search', search)
+        } else {
+            params.delete('search')
+        }
+
         router.push(`?${params.toString()}`)
     }
 
@@ -33,7 +40,8 @@ const useUsersTableParams = () => {
         pageSize,
         sortOrder: order === 'asc' ? 'ascend' : 'descend',
         sortBy,
-        setParams,
+        search,
+        setParams
     }
 }
 

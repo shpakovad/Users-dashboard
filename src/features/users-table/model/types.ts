@@ -19,7 +19,8 @@ interface ParamsTableProps {
     page?: number,
     pageSize?: number,
     sortOrder?: string,
-    sortBy?: string
+    sortBy?: string,
+    search?: string
 }
 
 

@@ -26,7 +26,7 @@ const UsersTable = () => {
 
 
     if (isLoading) {
-        return <Spin size="large" description="Loading" fullscreen/>
+        return <Spin size="large" description="Loading"/>
     } else if (isNoData) {
         return <Empty description={getEmptyDescription(data)}/>
     }
