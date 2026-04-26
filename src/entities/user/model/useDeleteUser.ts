@@ -1,5 +1,6 @@
 "use client"
 
+import {message} from "antd";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {deleteUser} from "@/entities/user/api/deleteUser";
 import {UserTableProps} from "@/features/users-table/model/types";
@@ -17,6 +18,10 @@ export const useDeleteUser = () => {
                     users: old.users.filter((user) => user.id !== id),
                 }
             })
+            message.success('User deleted successfully')
+        },
+        onError: (error: any) => {
+            message.error(error?.message || 'Failed to delete user')
         }
     })
 }
