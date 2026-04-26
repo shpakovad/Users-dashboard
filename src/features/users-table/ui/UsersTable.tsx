@@ -1,9 +1,10 @@
 "use client"
 
-import {Spin, Empty, Table} from "antd";
+import {Spin, Table} from "antd";
 import type {SorterResult} from "antd/es/table/interface";
-import {getColumns, getDataSource, getErrorDescription} from "@/features/users-table/model/tableConfig";
+import {getColumns, getDataSource} from "@/features/users-table/model/tableConfig";
 import {useTable} from "@/features/users-table/model/useTable";
+import ErrorState from "@/shared/lib/ui/ErrorState";
 import styles from "./UsersTable.module.css";
 
 
@@ -12,7 +13,6 @@ const UsersTable = () => {
     const {
         isLoading,
         isNoData,
-        data,
         users,
         sortBy,
         sortOrder,
@@ -29,7 +29,7 @@ const UsersTable = () => {
     if (isLoading) {
         return <Spin size="large" description="Loading"/>
     } else if (isNoData) {
-        return <Empty description={getErrorDescription(error)}/>
+        return <ErrorState message={error}/>
     }
 
     return (<div className={styles.container}>

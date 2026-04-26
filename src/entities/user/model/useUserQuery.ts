@@ -5,7 +5,7 @@ import {getUser} from "@/entities/user/api/getUser";
 
 export const useUserQuery = (id: string) => {
     return useQuery({
-        queryKey: ['user'],
+        queryKey: ['user',id],
         queryFn: () => getUser(id),
         retry: false,
         select: (data) => {

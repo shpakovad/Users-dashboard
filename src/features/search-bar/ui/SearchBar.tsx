@@ -20,6 +20,7 @@ const SearchBar = () => {
     }
 
     const onClearSearch = () => {
+        if(value.length === 0) return;
         setValue('');
         setParams({
             search: '',

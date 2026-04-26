@@ -1,8 +1,10 @@
 import React from "react";
-import {Popconfirm} from "antd";
+import {Button, Popconfirm} from "antd";
+import Link from "next/link";
+import {useRouter} from "next/navigation";
+import {ArrowLeftOutlined} from "@ant-design/icons";
 import {User} from "@/entities/user/model/types";
 import {toTitleCase} from "@/shared/lib/utils";
-import Link from "next/link";
 
 interface TableColumnsProps {
     data: User[],
@@ -66,7 +68,4 @@ const getDataSource = (data: User[]) =>
         key: user.id
     }));
 
-const getErrorDescription = (error?: string) =>
-    error || 'No data found';
-
-export {getColumns, getErrorDescription, getDataSource};
+export {getColumns, getDataSource};

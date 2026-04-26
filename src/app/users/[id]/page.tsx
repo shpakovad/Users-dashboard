@@ -1,15 +1,14 @@
 "use client"
 
-import {Avatar, Button, Card, Descriptions, Empty, Spin, Tooltip} from "antd";
-import {ArrowLeftOutlined} from "@ant-design/icons";
-import {useParams, useRouter} from "next/navigation";
+import {Avatar, Card, Descriptions, Spin} from "antd";
+import {useParams} from "next/navigation";
 import {useUserQuery} from "@/entities/user/model/useUserQuery";
-import {getErrorDescription} from "@/features/users-table/model/tableConfig";
+import ErrorState from "@/shared/lib/ui/ErrorState";
+import GoMainButton from "@/shared/lib/ui/GoMainButton";
 import styles from "./styles.module.css";
 
 const UserPage = () => {
 
-    const router = useRouter();
     const params = useParams();
 
     const id = params.id
@@ -19,48 +18,47 @@ const UserPage = () => {
         : null;
 
     const query = id ? useUserQuery(id) : null;
-
-    const isNoData = !query?.data || query.error || !id;
+    const userData = query?.data;
+    const isNoData = !userData || query.error || !id;
 
     if (query?.isLoading) {
         return <Spin size="large" description="Loading"/>
     } else if (isNoData) {
-        return <Empty description={getErrorDescription(query?.error?.message)}/>
+        return <ErrorState message={query?.error?.message} showGoBack={true}/>
     }
 
-    const userData = query.data;
     const {
-        firstName, lastName, age, address: {city, country}, email, bloodGroup, company: {title},
+        firstName, lastName, age, address: {city = '', country = ''}, email, bloodGroup, company: {title = ''},
         eyeColor, gender, height, image, phone, weight
     } = userData;
 
-    return (<div className={styles.cardContainer}><Card
-            classNames={{
-                root: styles.card
-            }}
-            title={
-                <div className={styles.title}>
-                    <Tooltip title="Go back">
-                        <Button icon={<ArrowLeftOutlined/>} onClick={() => router.back()}/>
-                    </Tooltip>
-                    <Avatar src={image} size={64} alt="user-logo" style={{padding: 6}}/>
-                    <span>{firstName} {lastName}</span>
-                </div>
-            }
-        >
-            <Descriptions column={1} bordered>
-                <Descriptions.Item label="Age">{age}</Descriptions.Item>
-                <Descriptions.Item label="Gender">{gender}</Descriptions.Item>
-                <Descriptions.Item label="Phone">{phone}</Descriptions.Item>
-                <Descriptions.Item label="Email"><a>{email}</a></Descriptions.Item>
-                <Descriptions.Item label="Address">{city}, {country}</Descriptions.Item>
-                <Descriptions.Item label="Profession">{title}</Descriptions.Item>
-                <Descriptions.Item label="Blood Group">{bloodGroup}</Descriptions.Item>
-                <Descriptions.Item label="Weight">{weight}</Descriptions.Item>
-                <Descriptions.Item label="Height">{height}</Descriptions.Item>
-                <Descriptions.Item label="Eye Color">{eyeColor}</Descriptions.Item>
-            </Descriptions>
-        </Card>
+    return (
+        <div className={styles.cardContainer}>
+            <GoMainButton/>
+            <Card
+                classNames={{
+                    root: styles.card
+                }}
+                title={
+                    <div className={styles.title}>
+                        <Avatar src={image} size={64} alt="user-logo" style={{padding: 6}}/>
+                        <span>{firstName} {lastName}</span>
+                    </div>
+                }
+            >
+                <Descriptions column={1} bordered>
+                    <Descriptions.Item label="Age">{age}</Descriptions.Item>
+                    <Descriptions.Item label="Gender">{gender}</Descriptions.Item>
+                    <Descriptions.Item label="Phone">{phone}</Descriptions.Item>
+                    <Descriptions.Item label="Email"><a>{email}</a></Descriptions.Item>
+                    <Descriptions.Item label="Address">{city}, {country}</Descriptions.Item>
+                    <Descriptions.Item label="Profession">{title}</Descriptions.Item>
+                    <Descriptions.Item label="Blood Group">{bloodGroup}</Descriptions.Item>
+                    <Descriptions.Item label="Weight">{weight}</Descriptions.Item>
+                    <Descriptions.Item label="Height">{height}</Descriptions.Item>
+                    <Descriptions.Item label="Eye Color">{eyeColor}</Descriptions.Item>
+                </Descriptions>
+            </Card>
         </div>
     );
 };
