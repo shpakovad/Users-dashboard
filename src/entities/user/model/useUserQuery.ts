@@ -7,6 +7,7 @@ export const useUserQuery = (id: string) => {
     return useQuery({
         queryKey: ['user'],
         queryFn: () => getUser(id),
+        retry: false,
         select: (data) => {
             return data
         },

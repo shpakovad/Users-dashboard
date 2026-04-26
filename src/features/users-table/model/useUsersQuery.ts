@@ -9,6 +9,7 @@ export const useUsersQuery = ({page, pageSize, sortOrder, sortBy, search}: Param
     return useQuery({
         queryKey: ['users', page, pageSize, sortOrder, sortBy, search],
         queryFn: () => getUsers({page, pageSize, sortOrder, sortBy, search}),
+        retry: false,
         select: (data) => {
             return {
                 ...data,

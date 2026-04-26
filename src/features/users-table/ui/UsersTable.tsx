@@ -2,7 +2,7 @@
 
 import {Spin, Empty, Table} from "antd";
 import type {SorterResult} from "antd/es/table/interface";
-import {getColumns, getDataSource, getEmptyDescription} from "@/features/users-table/model/tableConfig";
+import {getColumns, getDataSource, getErrorDescription} from "@/features/users-table/model/tableConfig";
 import {useTable} from "@/features/users-table/model/useTable";
 import styles from "./UsersTable.module.css";
 
@@ -21,14 +21,15 @@ const UsersTable = () => {
         total,
         page,
         pageSize,
-        onPaginationChange
+        onPaginationChange,
+        error
     } = useTable();
 
 
     if (isLoading) {
         return <Spin size="large" description="Loading"/>
     } else if (isNoData) {
-        return <Empty description={getEmptyDescription(data)}/>
+        return <Empty description={getErrorDescription(error)}/>
     }
 
     return (<div className={styles.container}>

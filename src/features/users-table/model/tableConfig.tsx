@@ -1,7 +1,6 @@
 import React from "react";
 import {Popconfirm} from "antd";
 import {User} from "@/entities/user/model/types";
-import {UserTableProps} from "@/features/users-table/model/types";
 import {toTitleCase} from "@/shared/lib/utils";
 import Link from "next/link";
 
@@ -67,7 +66,7 @@ const getDataSource = (data: User[]) =>
         key: user.id
     }));
 
-const getEmptyDescription = (dataQuery?: UserTableProps) =>
-    dataQuery?.message || 'No data found';
+const getErrorDescription = (error?: string) =>
+    error || 'No data found';
 
-export {getColumns, getEmptyDescription, getDataSource};
+export {getColumns, getErrorDescription, getDataSource};

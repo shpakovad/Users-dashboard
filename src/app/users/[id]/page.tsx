@@ -4,7 +4,7 @@ import {Avatar, Button, Card, Descriptions, Empty, Spin, Tooltip} from "antd";
 import {ArrowLeftOutlined} from "@ant-design/icons";
 import {useParams, useRouter} from "next/navigation";
 import {useUserQuery} from "@/entities/user/model/useUserQuery";
-import {getEmptyDescription} from "@/features/users-table/model/tableConfig";
+import {getErrorDescription} from "@/features/users-table/model/tableConfig";
 import styles from "./styles.module.css";
 
 const UserPage = () => {
@@ -20,12 +20,12 @@ const UserPage = () => {
 
     const query = id ? useUserQuery(id) : null;
 
-    const isNoData = !query?.data || query.data.isError || !id;
+    const isNoData = !query?.data || query.error || !id;
 
-    if (query?.isFetching) {
+    if (query?.isLoading) {
         return <Spin size="large" description="Loading"/>
     } else if (isNoData) {
-        return <Empty description={getEmptyDescription(query?.data)}/>
+        return <Empty description={getErrorDescription(query?.error?.message)}/>
     }
 
     const userData = query.data;
