@@ -1,9 +1,4 @@
-.container{
-width: 30%;
+.container {
+    width: 30%;
     display: flex;
-}
-
-.searchInput
-{
-    margin-right: 20px;
 }

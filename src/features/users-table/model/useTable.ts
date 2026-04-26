@@ -19,7 +19,7 @@ export const useTable = () => {
     const isNoData = !data || data.isError || !data.users.length;
 
     const total = data?.total ?? 0;
-    const users = data?.users ?? []
+    const users = data?.users ?? [];
 
     const onPaginationChange = (pagination: TablePaginationConfig, sorter: SorterResult) => {
         setParams({
