@@ -20,19 +20,18 @@ const SearchBar = () => {
     }
 
     const onClearSearch = () => {
-        if(value.length === 0) return;
+        if (value.length === 0) return;
         setValue('');
         setParams({
-            search: '',
-            page: 1,
+            search: ''
         })
     }
 
     useEffect(() => {
+        if (value.length !== 0 && value.length < 3) return;
         const timeout = setTimeout(() => {
             setParams({
-                search: value,
-                page: 1,
+                search: value
             })
         }, 500)
 

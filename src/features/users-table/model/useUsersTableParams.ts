@@ -11,7 +11,7 @@ const useUsersTableParams = () => {
     const sortBy = searchParams.get('sortBy') || 'bloodGroup';
     const search = searchParams.get('search') || '';
 
-    const setParams = ({page, pageSize = 10, sortOrder, sortBy, search}: ParamsTableProps) => {
+    const setParams = ({page = 1, pageSize = 10, sortOrder, sortBy, search}: ParamsTableProps) => {
         const params = new URLSearchParams(searchParams.toString());
 
         params.set('page', String(page));
