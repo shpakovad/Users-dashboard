@@ -33,7 +33,3 @@ Thumbs.db
 
 # typescript
 *.tsbuildinfo
-
-# AI / local agent config
-AGENTS.md
-CLAUDE.md
