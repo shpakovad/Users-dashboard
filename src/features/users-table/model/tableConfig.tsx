@@ -1,8 +1,6 @@
 import React from "react";
-import {Button, Popconfirm} from "antd";
+import {Popconfirm} from "antd";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
-import {ArrowLeftOutlined} from "@ant-design/icons";
 import {User} from "@/entities/user/model/types";
 import {toTitleCase} from "@/shared/lib/utils";
 
